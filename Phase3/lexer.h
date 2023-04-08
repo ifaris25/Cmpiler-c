@@ -9,6 +9,7 @@ extern struct entry symbolTable[];
 int insert(char s[], int tok);
 int lookup(char s[]);
 void error(char* m);
+extern FILE *input;
 
 char lexBuf[BSIZE];
  int lineno=1;
@@ -19,20 +20,20 @@ int lexan(){
     int t;
 
     while(1){
-        t=getchar();
+        t=getc(input);
         if(t=='\t'||t==' ');
         else if(t=='\n')
             lineno++;
         else if(isdigit(t)){
-            ungetc(t,stdin);
-            scanf("%d",&tokenval);
+            ungetc(t,input);
+            fscanf(input,"%d",&tokenval);
             return NUM;
         }
         else if (isalpha(t)){
             int p,b=0;
             while (isalnum(t)){
                 lexBuf[b++]=t;
-                t=getchar(); // for future
+                t=getc(input);//for future
                 if(b>=BSIZE){
                     error("Compiler error");
                 }
@@ -40,7 +41,7 @@ int lexan(){
             }
             lexBuf[b]=EOS;
             if(t!=EOF)
-                ungetc(t,stdin);
+                ungetc(t,input);
             p=lookup(lexBuf);
             if(p==0)
                 p=insert(lexBuf,ID); // p is now last entry

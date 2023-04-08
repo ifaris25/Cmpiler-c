@@ -1,25 +1,58 @@
 #include"global.h"
 #include"symbol.h"
+#define IL 2
+extern FILE * output;
 void emit(int t , int tval){
-
+    if(IL==1){
+        	switch(t) {
+	case '+':
+		fprintf(output, "pop r1\npop r2\nadd r2,r1\npush r2\n");
+		break;
+	case '-':
+		fprintf(output,"pop r1\npop r2\nsub r2,r1\npush r2\n");
+		break;
+	case '*':
+		fprintf(output,"pop r1\npop r2\nmult r2,r1\npush r2\n");
+		break;
+	case '/':
+		fprintf(output,"pop r1\npop r2\nrdiv r2,r1\npush r2\n");
+		break;
+	case DIV:
+		fprintf(output,"pop r1\npop r2\ndiv r2,r1\npush r2\n");
+		break;
+    case MOD:
+		fprintf(output,"pop r1\npop r2\nmod r2,r1\npush r2\n");
+		break;
+	case NUM:
+		fprintf(output,"push %d\n",tval);
+		break;
+	case ID:
+		fprintf(output,"push %s\n", symbolTable[tval].lexptr);
+		break;
+	default:
+		printf("token %d, tokenval %d\n", t, tval);
+	}
+    }
+    else{
     switch(t){
 
         case'+':
         case'-':
         case'*':
         case'/':
-                printf("%c",t); break;
+                fprintf(output,"%c",t); break;
         case DIV:
-                    printf(" DIV "); break;
+                    fprintf(output," DIV "); break;
         case MOD:
-                    printf(" MOD "); break;
+                    fprintf(output," MOD "); break;
         case NUM:
-                    printf("%d ",tval);break;
+                    fprintf(output,"%d ",tval);break;
         case ID:
-                    printf("%s",symbolTable[tval].lexptr);break;
+                    fprintf(output,"%s",symbolTable[tval].lexptr);break;
         default:
                     printf("token %d, tokenval %d\n",t,tval);
 
 
+    }
     }
 }
