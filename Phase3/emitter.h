@@ -9,17 +9,17 @@ void emit(int t , int tval){
         case'*':
         case'/':
                 printf("%c",t); break;
-        case DIV: 
-                    printf("DIV");break;
+        case DIV:
+                    printf(" DIV "); break;
         case MOD:
-                    printf("MOD");break;
+                    printf(" MOD "); break;
         case NUM:
-                    printf("%d",tval);break;
+                    printf("%d ",tval);break;
         case ID:
                     printf("%s",symbolTable[tval].lexptr);break;
         default:
                     printf("token %d, tokenval %d\n",t,tval);
-        
+
 
     }
 }

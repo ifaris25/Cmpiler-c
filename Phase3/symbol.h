@@ -9,7 +9,7 @@
 char lexems[STRMAX];
 int lastChar= -1;
 
-extern struct entry symbolTable[100];
+ struct entry symbolTable[SYMAX];
 int lastEntry=0;
 
 
@@ -36,7 +36,7 @@ int insert(char s[], int tok){
     lastEntry++;
     symbolTable[lastEntry].token=tok;
     symbolTable[lastEntry].lexptr=&lexems[lastChar+1];
-
+    lastChar=lastChar+length+1;
     strcpy(symbolTable[lastEntry].lexptr,s);
 
     return lastEntry;

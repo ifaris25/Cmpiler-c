@@ -5,7 +5,11 @@
 #include"global.h"
 #include"symbol.h"
 #include"error.h"
-struct entry symbolTable[100];
+extern struct entry symbolTable[];
+int insert(char s[], int tok);
+int lookup(char s[]);
+void error(char* m);
+
 char lexBuf[BSIZE];
  int lineno=1;
  int tokenval=NONE;
@@ -16,7 +20,7 @@ int lexan(){
 
     while(1){
         t=getchar();
-        if(t=='\t'||t=='\n');
+        if(t=='\t'||t==' ');
         else if(t=='\n')
             lineno++;
         else if(isdigit(t)){
@@ -34,7 +38,7 @@ int lexan(){
                 }
 
             }
-            lexBuf[b]=EOF;
+            lexBuf[b]=EOS;
             if(t!=EOF)
                 ungetc(t,stdin);
             p=lookup(lexBuf);
