@@ -1,9 +1,9 @@
 #include"global.h"
 #include"symbol.h"
-#define IL 2
+#define FORMAT 2
 extern FILE * output;
 void emit(int t , int tval){
-    if(IL==1){
+    if(FORMAT==1){
         	switch(t) {
 	case '+':
 		fprintf(output, "pop r1\npop r2\nadd r2,r1\npush r2\n");
@@ -40,15 +40,15 @@ void emit(int t , int tval){
         case'-':
         case'*':
         case'/':
-                fprintf(output,"%c",t); break;
+                fprintf(output,"%c ",t); break;
         case DIV:
-                    fprintf(output," DIV "); break;
+                    fprintf(output,"DIV "); break;
         case MOD:
-                    fprintf(output," MOD "); break;
+                    fprintf(output,"MOD "); break;
         case NUM:
                     fprintf(output,"%d ",tval);break;
         case ID:
-                    fprintf(output,"%s",symbolTable[tval].lexptr);break;
+                    fprintf(output,"%s ",symbolTable[tval].lexptr);break;
         default:
                     printf("token %d, tokenval %d\n",t,tval);
 

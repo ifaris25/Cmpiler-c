@@ -12,16 +12,14 @@ void match(int);
 void factor();
 int lookahead;
 extern FILE *output;
-void parse()
-{
+void parse(){
 		lookahead = lexan();
 		while (lookahead != DONE) {
 		       expr(); match(';'); fprintf(output,"\n\n");
 		}
 }
 
-void expr()
-{
+void expr(){
 	int t;
 	term();
 
@@ -49,8 +47,7 @@ void term()
 		return;
 	}
 }
-void factor()
-{
+void factor(){
 	switch (lookahead) {
 	case '(':
 		match ('('); expr(); match(')'); break;
@@ -66,9 +63,8 @@ void factor()
 	}
 }
 
-void match(t)
-	int t;
-{
+void match(t){
+
 	if (lookahead == t)
 		lookahead = lexan();
 	else error ("syntax error");

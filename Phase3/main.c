@@ -5,9 +5,9 @@ FILE * input;
 FILE * output;
 FILE * err;
 int main(void){
-    input = fopen("file.exp" , "r");
-	output = fopen("file.obj" , "w");
-	err = fopen("file.err" , "w");
+    input = fopen("inputFile.exp" , "r");
+	output = fopen("outputFile.obj" , "w");
+	err = fopen("errorFileile.err" , "w");
     if (input == NULL){
 		printf("the file doesn't exist");
 	}
