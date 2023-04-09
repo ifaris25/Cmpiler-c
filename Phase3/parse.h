@@ -9,16 +9,14 @@ void parse();
 void expr();
 void term();
 void match(int);
-void moreTerms();
 void factor();
-void moreFactor();
 int lookahead;
-
+extern FILE *output;
 void parse()
 {
 		lookahead = lexan();
 		while (lookahead != DONE) {
-		       expr(); match(';');
+		       expr(); match(';'); fprintf(output,"\n\n");
 		}
 }
 

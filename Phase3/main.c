@@ -7,10 +7,11 @@ FILE * err;
 int main(void){
     input = fopen("file.exp" , "r");
 	output = fopen("file.obj" , "w");
+	err = fopen("file.err" , "w");
     if (input == NULL){
 		printf("the file doesn't exist");
 	}
-    
+
     init();
     parse();
     exit(0);
