@@ -1,8 +1,8 @@
 A B MOD 
 
-1 2 + 
+1 2 DIV 
 
-F XY DIV 
+3 2 4 + * 5 3 / - 1 + 
 
-1 2 3 * + 
+xx yy + 
 

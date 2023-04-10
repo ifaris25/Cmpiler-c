@@ -1,0 +1,7 @@
+push 2
+push 3
+pop r1
+pop r2
+add r2,r1
+push r2
+pop A

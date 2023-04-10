@@ -11,12 +11,9 @@ int main(void){
     if (input == NULL){
 		printf("the file doesn't exist");
 	}
-	else{
 
     init();
     parse();
     exit(0);
-
-	}
 
 }
