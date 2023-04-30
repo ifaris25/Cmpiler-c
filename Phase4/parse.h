@@ -11,21 +11,68 @@ void term();
 void match(int);
 void factor();
 void stmt();
+void CS();
 int lookahead;
 extern FILE *output;
-
-
-void stmt(){
-	int temp = tokenval;
-	match(ID);
-	match('=');
-	expr();
-	fprintf(output,"pop %s",symbolTable[temp].lexptr);
-}
 
 void parse(){
 		lookahead = lexan();
 		stmt();
+		match(DONE);
+}
+
+
+void stmt(){
+	int temp = tokenval;
+	switch (lookahead){
+	
+		case ID: match(ID);
+				match('=');
+				expr();
+				fprintf(output,"pop %s\n",symbolTable[temp].lexptr);
+				break;
+		case IF:
+				 match(IF); 
+				 match('(');
+				 expr();
+				 match(')');
+				 fprintf(output,"pop r2\ncmp r2,0\nbe else\n");
+				 match(THEN);
+				 stmt();
+				 fprintf(output,"else:\n");
+				 break;
+		
+		case WHILE:
+					match(WHILE);
+					fprintf(output,"while\n");
+					match('(');
+					expr();
+					match(')');
+					fprintf(output,"pop r2\ncmp r2,0\nbe endwhile\n");
+					match(DO);
+					stmt();
+					fprintf(output,"b while\nendwhile\n");
+					break;
+
+		case BEGIN:
+					match(BEGIN);
+					CS();
+					match(END);
+					break;
+		default:error("Syntax error\n");
+
+
+
+	
+	
+	}
+}
+
+void CS(){
+    while(lookahead != END){
+        stmt();match(';');
+    }
+
 }
 
 void expr(){

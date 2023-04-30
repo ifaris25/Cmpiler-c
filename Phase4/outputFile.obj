@@ -1,7 +1,14 @@
-push 2
-push 3
+while
+push 1
+pop r2
+cmp r2,0
+be endwhile
+push 1
+push 1
 pop r1
 pop r2
 add r2,r1
 push r2
-pop A
+pop x
+b while
+endwhile

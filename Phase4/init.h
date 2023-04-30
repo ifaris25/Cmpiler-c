@@ -9,6 +9,12 @@
 struct entry keywords[] = {
 	"div", DIV,
 	"mod", MOD,
+	"if", IF,
+	"while", WHILE,
+	"then", THEN,
+	"do", DO,
+	"begin", BEGIN,
+	"end", END,
 	    0, 0
 };
 
