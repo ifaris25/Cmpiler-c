@@ -25,7 +25,7 @@ int lexan(){
             lineno++;
         else if(isdigit(t)){
             ungetc(t,input);
-            fscanf(input,"%d",&tokenval);
+            fscanf(input, "%d", &tokenval);
             return NUM;
         }
         else if (isalpha(t)){

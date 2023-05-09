@@ -20,7 +20,35 @@ int lexan(){
 
     while(1){
         t=getc(input);
-        if(t=='\t'||t==' ');
+        if(t=='^'){
+            while(1){
+                t=getc(input);
+                if(t=='\n'){
+                    break;
+                }
+                lineno++;
+        
+                
+            }
+        t = getc(input);
+        }
+        
+        if(t=='%'){
+            while(1){
+                t=getc(input);
+                if(t=='\n')
+                    lineno++;
+                if(t == '%'){
+		            break;
+		        }
+                
+
+
+            }
+            t = getc(input);
+        }
+        
+         if(t=='\t'||t==' ');
         else if(t=='\n')
             lineno++;
         else if(isdigit(t)){

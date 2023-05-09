@@ -1,0 +1,15 @@
+push 1
+pop r2
+cmp r2,0
+be else1
+push 2
+pop r2
+cmp r2,0
+be else2
+else2:
+else1:
+push 3
+pop r2
+cmp r2,0
+be else3
+else3:

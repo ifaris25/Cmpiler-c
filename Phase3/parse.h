@@ -63,7 +63,7 @@ void factor(){
 	}
 }
 
-void match(t){
+void match(int t){
 
 	if (lookahead == t)
 		lookahead = lexan();

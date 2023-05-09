@@ -4,6 +4,10 @@
 #include "global.h"
 #include"lexer.h"
 #include"emitter.h"
+int ifMax=0;
+int ifElseCounter=0;
+int whileMax=0;
+int whileCounter=0;
 
 void parse();
 void expr();
@@ -16,13 +20,12 @@ int lookahead;
 extern FILE *output;
 
 void parse(){
-	lookahead = lexan();
+		lookahead = lexan();
 		while(lookahead!=DONE){
 		stmt();
 		
 		}
-		match(DONE);
-		
+		match(DONE);		
 		
 		
 }
@@ -31,33 +34,40 @@ void parse(){
 void stmt(){
 	int temp = tokenval;
 	switch (lookahead){
-	
-		case ID: match(ID);
+
+		case ID:
+				match(ID);
 				match('=');
 				expr();
 				fprintf(output,"pop %s\n",symbolTable[temp].lexptr);
 				break;
 		case IF:
-				 match(IF); 
+				 match(IF);
+				 ifMax++;
+				 ifElseCounter=ifMax;
 				 match('(');
 				 expr();
 				 match(')');
-				 fprintf(output,"pop r2\ncmp r2,0\nbe else\n");
+				 fprintf(output,"pop r2\ncmp r2,0\nbe else%d\n",ifElseCounter);
 				 match(THEN);
 				 stmt();
-				 fprintf(output,"else:\n");
+				 fprintf(output,"else%d:\n",ifElseCounter);
+				 ifElseCounter--;
 				 break;
-		
+
 		case WHILE:
 					match(WHILE);
-					fprintf(output,"while\n");
+					whileMax++;
+					whileCounter=whileMax;
+					fprintf(output,"while%d\n",whileCounter);
 					match('(');
 					expr();
 					match(')');
-					fprintf(output,"pop r2\ncmp r2,0\nbe endwhile\n");
+					fprintf(output,"pop r2\ncmp r2,0\nbe endwhile%d\n",whileCounter);
 					match(DO);
 					stmt();
-					fprintf(output,"b while\nendwhile\n");
+					fprintf(output,"b while%d\nendwhile%d:\n",whileCounter,whileCounter);
+					whileCounter--;
 					break;
 
 		case BEGIN:
@@ -65,21 +75,19 @@ void stmt(){
 					CS();
 					match(END);
 					break;
-		default:error("Syntax error\n");
+		default:return;
 
 
 
-	
-	
+
+
 	}
 }
 
 void CS(){
     while(lookahead != END){
-        stmt();
-		match(';');
+        stmt();match(';');
     }
-	
 
 }
 
@@ -97,15 +105,14 @@ void expr(){
 	       return;
 	}
 }
-void term()
-{
+void term(){
 	int t;
 	factor();
 	while(1)
 	     switch (lookahead) {
 	        case '*': case '/': case DIV: case MOD:
 		t = lookahead;
-		match(lookahead); factor(); emit(t, NONE);
+		match(lookahead); factor(); emit	(t, NONE);
 		continue;
 	         default:
 		return;
@@ -131,6 +138,6 @@ void match(int t){
 
 	if (lookahead == t)
 		lookahead = lexan();
-	else error ("syntax error");
+	else error ("syntax error Match part ");
 }
 #endif
